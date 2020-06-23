@@ -1,0 +1,47 @@
+大数据分析阶段测试题
+
+1.关闭防火墙应该如何操作
+使用root账户，执行：systemctl stop firewalld.service
+
+2.修改ip是，需要更改哪个文件
+/etc/sysconfig/network-scripts/ifcfg-ens33
+
+3.Hive中的复杂数据类型有哪些
+struct, map, array
+
+4.Hive中查看数据库基本信息的指令
+desc database [extended] 数据库名;
+
+5.尝试写出Hive中创建表的完整语法
+create [external] table if not exists 表名(
+列名 数据类型 [comment 本列注释], 
+......
+)
+[comment 表注释]
+[partitioned by (列名 数据类型 [comment 本列注释, ...])]
+[clustered by (列名, 列名, ...)]
+[stored by (列名 [asc|desc], ...) info num_buckets buckets]
+[row format row_format]
+[stored as file_format]
+[location hdfs_path]
+[tblproperties (property_name=property_value, ...)]
+[as select_statement]
+
+6.内部表和外部表的区别
+管理表，有时也被成为内部表，因为这种表，Hive会(或多或少的)控制着数据的生命周期，当删除一个
+管理表时，hive也会删除这个表中的数据，当删除一个外部表时，只会删除表的元数据信息而不会删除数据
+
+7.如何清除Hive表中的数据
+truncate table 表名;
+
+8.静态分区和动态分区的区别
+主要区别在与静态分区是手动指定，而动态分区是通过数据来进行判断
+静态分区的列实在编译时期，通过用户传递列名来决定的，动态分区只有在SQL执行时才能决定，其可以根据查询得到的数据动态分配到分区里，其实动态分区与静态分区就是不指定分区目录，由系统自己选择
+
+9.严格模式限制了哪几种查询
+对于分区表，where语句后要含有分区过滤条件
+对于使用order by语句的查询，要求必须使用limit进行限制查询
+限制笛卡尔积的查询
+
+10.如何将HDFS中的数据导入到Hive表中
+load data inpath 'HDFS上的路径' into table 表名 [partition(partcol1=val1, ...)];

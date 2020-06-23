@@ -1,0 +1,29 @@
+数据清洗pandas常用函数
+import pandas as pd
+
+1.读取数据
+df = pd.read_csv(file_path)
+
+2.显示数据总体信息
+df.info()
+
+3.查看前10条数据
+df.head(10)
+
+4.重置索引
+df.index = range(length)
+
+5.去重
+# 查看重复数据布尔索引
+df[df.duplicated()]
+# 删除重复行（inplace=True表示在源数据上操作）
+df.drop_duplicates(inplace=True)
+
+6.组合行
+pd.concat([df[df.col>10], df[df.col<30]])
+
+7.删除行
+df.drop(index, inplace=True)
+
+8.查看缺失值
+df.isnull().sum()
