@@ -20,12 +20,14 @@ alter database 数据库名称 set dbproperties('createtime'='20170503')
 添加分区
 alter table 表名称 add partition(分区字段=value);
 
+添加一列字段并加上注释
+alter table 表名 add columns(字段名 类型 comment '注释');
+
 重命名表
 alter table 原表名 rename to 新表名
 
 更新列
-alter table 表名称 change [cloumn] 旧的列名称 新的列名称 列类型 [COMMENT col_comment] [FIRST|AFTER column_name]
-
+alter table 表名称 change [cloumn] 旧的列名称 新的列名称 列类型 [COMMENT 列注释] [FIRST|AFTER column_name]
 
 创建表
 create [external] table if not exists 表名(
@@ -53,7 +55,6 @@ SELECT [ALL | DISTINCT] select_expr, select_expr, ...
   [ORDER BY col_list]
   [CLUSTER BY col_list | [DISTRIBUTE BY col_list] [SORT BY col_list]]
  [LIMIT number]
-
 
 清空表数据
 truncate table 表名
