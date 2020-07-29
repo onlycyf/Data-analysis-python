@@ -104,7 +104,11 @@ concat_ws(separator, str1, str2,...)：它是一个特殊形式的 CONCAT()。
 collect_set(col)：函数只接受基本数据类型，它的主要作用是将某字段的值进行去重汇总，
 产生array类型字段。
 
+获取hdsf中的json类型的字典中的键
+例如: {'a': 11, 'b': 22}
+select get_json_object(列名称, '$.字典中键名称') from 表名称;
 列转行
+
 explode(col)：将hive一列中复杂的array或者map结构拆分成多行。
 
 movie   category
@@ -124,6 +128,18 @@ movie   category
 《战狼2》        灾难
 select movie, category_name from movie_info
 lateral view explode(category) table_tmp as category_name;
+
+如果是json类型的数组里包含着字典,使用行转列之前，
+需要使用正则匹配将数组两边的[]去掉，然后将字典之间的分隔符替换成hive中的特殊分隔符\001，最后在使用lateral view explode()
+例如：取出下面所有的amount
+      id      ext
+     1001    {"assume_discount":[{"amount":0,"assume":1,"type":"ticket_coupon"},{"amount":"1.51","assume":1,"type":"goods_discount"}]}
+SELECT get_json_object(重命名列名称, '$.amount') Discount
+FROM 表名称
+lateral view explode(split(regexp_replace(regexp_replace(get_json_object(字段名称(ext),'$.键名称(assume_discount)'),
+                                                                         '^\\[|\\]$',''), # 将数组开头的[和结尾的]替换成空
+                                                        '\\}\\,\\{', '\\}\\\\001\\{'), #将字典之间的分隔符替换成\001(hive特殊分隔符，注意前面是4个\)
+                      '\\\\001')) 新列名称 as 重命名列名称
 
 窗口函数
 over()：指定分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变而变化
