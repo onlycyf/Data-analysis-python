@@ -141,6 +141,36 @@ lateral view explode(split(regexp_replace(regexp_replace(get_json_object(字段�
                                                         '\\}\\,\\{', '\\}\\\\001\\{'), #将字典之间的分隔符替换成\001(hive特殊分隔符，注意前面是4个\)
                       '\\\\001')) 新列名称 as 重命名列名称
 
+将单词转小写函数：lower 或者 lcase 函数
+select lower('App') from 表名  #结果是：app
+
+将单词转大写：upper 或者 ucase 函数
+select upper('App') from 表名 # 结果是app
+
+求字符串长度 length 函数
+select length('App')  #求字符串长度：3
+
+左补齐 lpad 函数
+select lpad('what', 10, '*')  #左补齐，长度补成10位，以'*'补充，结果是：******what
+
+右补齐 rpad 函数
+select rpad('what', 10, '*')   #同理是右补齐
+
+强制转换类型cast函数
+select cast(29 as float)  #强制类型转换，转成float类型
+
+拆分字符串 split 函数
+select split('www#baidu#com', '#')  #以自定字符，例如'#'拆分字符串
+
+时间戳格式化标准时间函数
+select from_unixtime(1441565203,'yyyy/MM/dd HH:mm:ss') from 表名;
+1441565203会转成2015-09-07 02:46:43
+
+标准时间格式化时间戳
+select unix_timestamp('2015-09-07 02:46:43') from 表名;
+2015-09-07 02:46:43会转化成1441565203
+
+
 窗口函数
 over()：指定分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变而变化
 current row：当前行
