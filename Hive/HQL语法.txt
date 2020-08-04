@@ -134,7 +134,7 @@ lateral view explode(category) table_tmp as category_name;
 例如：取出下面所有的amount
       id      ext
      1001    {"assume_discount":[{"amount":0,"assume":1,"type":"ticket_coupon"},{"amount":"1.51","assume":1,"type":"goods_discount"}]}
-SELECT get_json_object(重命名列名称, '$.amount') Discount
+SELECT get_json_object(重命名列名称, '$.amount') 重命名
 FROM 表名称
 lateral view explode(split(regexp_replace(regexp_replace(get_json_object(字段名称(ext),'$.键名称(assume_discount)'),
                                                                          '^\\[|\\]$',''), # 将数组开头的[和结尾的]替换成空
