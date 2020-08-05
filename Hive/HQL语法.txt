@@ -44,6 +44,13 @@ create [external] table if not exists 表名(
 [tblproperties (property_name=property_value, ...)]
 [as select_statement]
 
+删除表
+drop table 表名;
+
+删除外部表
+ALTER TABLE 表名 SET TBLPROPERTIES('EXTERNAL'='False'); 
+drop table 表名;
+
 修复分区表
 msck repair table 表名称;
 
