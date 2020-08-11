@@ -103,13 +103,15 @@ select 查询字段 from 表名;
 白羊座,A            孙悟空|猪八戒
 白羊座,B            宋宋
 
+collect_set(col)：函数只接受基本数据类型，它的主要作用是将某字段的值进行去重汇总，
+产生array类型字段。
 concat(string A/col, string B/col…)：返回输入字符串连接后的结果，支持任意个输入字符串;
 concat_ws(separator, str1, str2,...)：它是一个特殊形式的 CONCAT()。
 第一个参数剩余参数间的分隔符。分隔符可以是与剩余参数一样的字符串。如果分隔符是 NULL，
-返回值也将为 NULL。这个函数会跳过分隔符参数后的任何 NULL 和空字符串。
-分隔符将被加到被连接的字符串之间;
-collect_set(col)：函数只接受基本数据类型，它的主要作用是将某字段的值进行去重汇总，
-产生array类型字段。
+返回值也将为 NULL。这个函数会跳过分隔符参数后的任何 NULL 和空字符串,分隔符将被加到被连接的字符串之间;
+可以将collect_set()变成字符串，例如：
+collect_set(items) -> ['1', '2', '3']
+concat_ws(',', collect_set(promo_type)) -> '1','2','3'
 
 获取hdsf中的json类型的字典中的键
 例如: {'a': 11, 'b': 22}
