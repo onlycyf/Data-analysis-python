@@ -1,5 +1,20 @@
 HQL语句
 
+map 数据字典
+(key1, value1, key2, value2, ...)
+
+struct  结构体
+(val1, val2, val3, ...)
+
+named_struct 命名结构体(Hive 0.8.0 支持名称)
+(name1, val1, name2, val2, ...)
+
+array  数组
+(val1, val2, ...)
+
+create_union  使用tag参数指向的值创建联合类型
+(tag, val1, val2, ...) 
+
 创建数据库
 create database if not exists 数据库名称 [location /位置/名称]
 
