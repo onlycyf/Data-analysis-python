@@ -1,0 +1,75 @@
+sql常用语法：
+
+ddl 数据定义语言
+
+创建数据库
+create database if not exists name;
+
+查看所有数据库或者表名称
+show databases;
+show tables;
+
+删除数据库
+drop database 库名
+
+选择数据库
+use 库名
+
+创建索引
+普通单字段索引
+create index [索引名称] on [table_name] (字段名称)
+
+联合索引
+create index [索引名称] on [table_name] (字段名称1, 字段名称2)
+
+创建表
+create table `tb_name` (
+  `col` 字段类型(int(10), char(10), varchar(64), float, double, decimal, 
+                    datetime, timestamp, text) [字段约束]
+) engine=innodb auto_increment=67 default charset=utf8 comment='表注释';
+
+清空数据表
+truncate 表名
+
+增加字段
+alter table 表名 add column 列名 字段类型 [约束条件]
+
+删除字段
+alter table 表名 drop column 列名
+
+修改字段
+alter table 表名称 change 原字段名称 新字段名称 字段类型 [comment 列注释] [约束条件]
+
+dml 数据操作语言
+
+增
+insert into [table_name] (col1, col2, col3, ...) values (value1, value2, value3, ...)
+覆盖增(根据主键或者唯一索引判断)
+replace into [table_name] (col1, col2, ...) values (value1, value2, ...)
+
+删
+delete from [table_name] where 条件1 and 条件2 and ...
+
+改
+update [table_name] set col1 = value1, col2 = value2 where 条件1 and 条件2 and ...
+
+查
+select col1, col2, ...
+from table_name
+where 条件1 and 条件2
+[group by col1, col2]
+[order by col1, col2]
+[limit num offset num]
+
+
+
+
+
+
+
+
+
+
+
+
+
