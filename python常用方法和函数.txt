@@ -1,0 +1,60 @@
+python连接hive数据库
+
+使用impala连接
+
+需要先安装python包
+pip3 install pure-sasl
+pip3 install sasl
+pip3 install thrift_sasl
+pip3 install impyla
+
+from impyla import connect
+
+def hive_sql():
+    try:
+        # 得到连接
+        conn = connect(host='***', port=10000, auth_mechanism='PLAIN', user='root')
+        # 得到句柄
+        cursor = conn.cursor()
+        # 执行查询
+        cursor.execute('show databases')
+        # 获取查询结果
+        res = cursor.fetchall()
+        # 打印结果信息
+        print(res)
+    except Exception as e:
+        print(e)
+
+
+requests
+
+import requests
+
+def re_post():
+    # 1.Requests以form表单形式发送post请求
+    url = 'http://httpbin.org/post'
+    data = {'key1':'value1','key2':'value2'}
+    r = requests.post(url,data)
+    print(r)
+    print(r.text)
+    print(r.content)
+
+    # 2.以json的形式提交表单
+    url_json = 'http://httpbin.org/post'
+    data_json = json.dumps({'key1':'value1','key2':'value2'})   #dumps：将python对象解码为json数据
+    r_json = requests.post(url_json,data_json)
+    print(r_json)
+    print(r_json.text)
+    print(r_json.content)
+
+    # 3.以multipart的形式发送post
+    url_mul = 'http://httpbin.org/post'
+    files = {'file':open('E://report.txt','rb')}
+    r = requests.post(url_mul,files=files)
+    print(r)
+    print(r.text)
+    print(r.content)
+
+
+
+

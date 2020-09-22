@@ -188,7 +188,9 @@ select split('www#baidu#com', '#')  #以自定字符，例如'#'拆分字符串
 
 时间戳格式化标准时间函数
 select from_unixtime(1441565203,'yyyy/MM/dd HH:mm:ss') from 表名;
+select from 表名 where to_date(from_unixtime(created_at))='2020-09-07'
 1441565203会转成2015-09-07 02:46:43
+to_date()格式化成年月日
 
 标准时间格式化时间戳
 select unix_timestamp('2015-09-07 02:46:43') from 表名;
