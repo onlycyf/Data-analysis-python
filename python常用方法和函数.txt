@@ -1,4 +1,4 @@
-python连接hive数据库
+--------------------python连接hive数据库--------------------
 
 使用impala连接
 
@@ -26,7 +26,7 @@ def hive_sql():
         print(e)
 
 
-requests
+---------------------requests--------------------
 
 import requests
 
@@ -78,5 +78,85 @@ print(time4)
 # time.struct_time(tm_year=2020, tm_mon=10, tm_mday=12, tm_hour=10, tm_min=3, tm_sec=42, tm_wday=0, tm_yday=286, tm_isdst=0)
 # 2020-10-12 10:42:03
 # 1602432000.0
+---------------------------------linux screen的使用-------------------------
+# 安装screen
+sudo yum install screen
+# 创建一个screen窗口
+screen -S [name]
+# 切换screen窗口
+screen -r [name]
+# 查看screen下所有窗口的id和名称
+screen -ls
+'''
+There is a screen on:
+    9208.kafka_log  (Detached)
+1 Socket in /var/run/screen/S-data.
+'''
+# 删除一个screen窗口
+screen -X -S [id] quit
+---------------------------------kafka连接-----------------------------------
+# kafka官方文档
+# https://kafka-python.readthedocs.io/en/master/apidoc/KafkaConsumer.html
+
+from kafka import KafkaConsumer
+
+# 第一个参数topic是Kafka数据写入操作的基本单元，一个topic包含多个partition
+# bootstrap_servers kafka连接ip
+# group_id设置组名称(自己取一个名字)
+# enable_auto_commit 自动提交 False为关闭，默认是True，每5s提交一次
+# auto_offset_reset 用于OffsetOutOfRange错误上重置偏移量的策略 参数有2个：earliest(读取最早可以读的消息)，latest(读取最新的消息，默认)
+# 创建一个消费者consumer
+consumer1 = KafkaConsumer('saas_log',
+                          bootstrap_servers=[ip],
+                          group_id=group_id,
+                          enable_auto_commit=False,
+                          auto_offset_reset='earliest')
+# 一次获取100条数据，poll()默认一次500条
+consumer1 = consumer1.poll(100)
+for message in consumer1:
+    print('当前消息的分区' + message.partition)
+    print('当前消息的topic' + message.topic)
+    print('当前消息的偏移量' + message.offset)
+    print('当前消息的key' + message.key)
+    print('当前消息内容' + message.value)
+    print('当前消息偏移量' + message.offset)
+    value = message.value
+    # 下面就根据业务写函数，解析value的有用数据
+    def function():
+        pass
+    # 消费完数据后，提交offset
+    def commit(offset_id):
+        consumer1.commit(offset=offset_id)
+
+# 如果想从指定分区的偏移量开始消费数据，连接的时候不能加topic和group_id
+consumer2 = KafkaConsumer(bootstrap_servers=[ip],
+                          enable_auto_commit=False,
+                          auto_offset_reset='earliest')
+# 设置topic和分区
+partition = TopicPartition('saas-log', 0)
+# 获取partition的最近可用offset
+print(consumer.end_offsets([partition]))
+# 注册
+consumer.assign([partition])
+# 获取指定分区和指定offset的消息
+consumer.seek(partition, 10673962062)
+# 从指定offset开始获取消息
+for message in consumer:
+    print('当前消息的分区' + message.partition)
+    print('当前消息的topic' + message.topic)
+    print('当前消息的偏移量' + message.offset)
+    print('当前消息的key' + message.key)
+    print('当前消息内容' + message.value)
+    print('当前消息偏移量' + message.offset)
+
+
+
+
+
+
+
+
+
+
 
 
