@@ -94,6 +94,10 @@ There is a screen on:
 '''
 # 删除一个screen窗口
 screen -X -S [id] quit
+# 如果当切换一个存在的screen是出现There is no screen to be resumed matching
+# 先通过ps all查看后台进程，找到想要切换的screen，使用kill -9杀死
+kill -9 [PPID]
+# 然后再切换screen -r [name]
 ---------------------------------kafka连接-----------------------------------
 # kafka官方文档
 # https://kafka-python.readthedocs.io/en/master/apidoc/KafkaConsumer.html
