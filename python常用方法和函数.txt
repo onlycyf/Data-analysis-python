@@ -139,19 +139,19 @@ consumer2 = KafkaConsumer(bootstrap_servers=[ip],
 # 设置topic和分区
 partition = TopicPartition('saas-log', 0)
 # 获取partition的最近可用offset
-print(consumer.end_offsets([partition]))
+print(consumer2.end_offsets([partition]))
 # 注册
-consumer.assign([partition])
+consumer2.assign([partition])
 # 获取指定分区和指定offset的消息
-consumer.seek(partition, 10673962062)
+consumer2.seek(partition, 10673962062)
 # 从指定offset开始获取消息
-for message in consumer:
+for message in consumer2:
     print('当前消息的分区' + message.partition)
     print('当前消息的topic' + message.topic)
     print('当前消息的偏移量' + message.offset)
     print('当前消息的key' + message.key)
     print('当前消息内容' + message.value)
-    print('当前消息偏移量' + message.offset)
+
 
 
 
