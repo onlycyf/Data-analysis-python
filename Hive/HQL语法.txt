@@ -66,6 +66,9 @@ drop table 表名;
 ALTER TABLE 表名 SET TBLPROPERTIES('EXTERNAL'='False'); 
 drop table 表名;
 
+删除分区
+alter table 表名 drop if exists partition(分区=value)
+
 修复分区表
 msck repair table 表名称;
 
