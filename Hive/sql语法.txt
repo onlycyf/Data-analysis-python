@@ -25,6 +25,15 @@ create unique index [索引名称] on [table_name] (列名1,列名2……)
 联合索引
 create index [索引名称] on [table_name] (字段名称1, 字段名称2)
 
+添加普通索引
+alter table [表名称] add index [索引名称] ('column')
+
+添加主键索引
+alter table [表名称] add primary key ('column') 
+
+添加唯一索引
+alter table [表名称] add unique (’column‘)
+
 创建表
 create table `tb_name` (
   `col` 字段类型(int(10), char(10), varchar(64), float, double, decimal, 
