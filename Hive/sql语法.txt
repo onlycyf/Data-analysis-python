@@ -19,6 +19,9 @@ use 库名
 普通单字段索引
 create index [索引名称] on [table_name] (字段名称)
 
+唯一索引
+create unique index [索引名称] on [table_name] (列名1,列名2……)
+
 联合索引
 create index [索引名称] on [table_name] (字段名称1, 字段名称2)
 
