@@ -31,7 +31,14 @@ set mapred.output.compression.codec=org.apache.hadoop.io.compress.BZip2Codec;
 set hive.exec.mode.local.auto=true;
 
 # 设置hive在map执行前合并小文件，减少map数
-set mapred.max.split.size=100000000; 
+set mapred.max.split.size=256000000; 
+set mapred.min.split.size=10000000;
 set mapred.min.split.size.per.node=100000000; 
-set mapred.min.split.size.per.rack=100000000; 
+set mapred.min.split.size.per.rack=100000000;
 set hive.input.format=org.apache.hadoop.hive.ql.io.CombineHiveInputFormat; 
+
+1.注意一般来说这四个参数的配置结果大小要满足如下关系。
+max.split.size >= min.split.size >= min.size.per.node >= min.size.per.node
+ 
+2.这四个参数的作用优先级分别如下
+max.split.size <= min.split.size <= min.size.per.node <= min.size.per.node
