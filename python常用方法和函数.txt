@@ -153,6 +153,279 @@ for message in consumer2:
     print('当前消息内容' + message.value)
 
 
+# 冒泡排序法
+import datetime
+import os
+
+lis = [56, 3, 41, 53, 1, 45, 661, 2, 45, 1, 2, 3, 51, 2]
+
+
+def sortport():
+    for i in range(len(lis) - 1):
+        for j in range(len(lis) - i - 1):
+            if lis[j] > lis[j + 1]:
+                lis[j], lis[j + 1] = lis[j + 1], lis[j]
+    return lis
+
+
+# 计算x的n次方
+def power(x, n):
+    s = 1
+    while n > 0:
+        n = n - 1
+        s = s * x
+    return s
+
+
+# 计算a*a + b*b + c*c
+def calc(*numbers):
+    sums = 0
+    for n in numbers:
+        sums = sums + n * n
+    return sums
+
+
+# print(calc(1, 2, 3))
+
+
+# 计算阶乘n!
+# 方法一
+def fac():
+    num = int(input('请输入一个数字：'))
+    factorial = 1
+
+    # 查看数字是负数，0或正数
+    if num < 0:
+        print('抱歉，负数没有阶乘')
+    elif num == 0:
+        print('0 的阶乘为1')
+    else:
+        for i in range(1, num + 1):
+            factorial = factorial * i
+        print('%d的阶乘为%d' % (num, factorial))
+
+
+# 方法二
+def factorial(n):
+    result = n
+    for i in range(1, n):
+        result *= i
+    return result
+
+
+# 方法三
+def fact(n):
+    if n == 1:
+        return 1
+    return n * fact(n - 1)
+
+
+# 列出当前目录下所有文件和目录名
+file_name = [d for d in os.listdir('.')]
+
+# 把一个list中所有的字符串变成小写：
+L = ['HELLO', 'World', 'IBM', 'Apple']
+L_lower = [s.lower() for s in L]
+
+
+# 输出某个路径下的所有文件和文件夹的路径
+def print_dir():
+    file_path = input('请输入一个路径：')
+    if file_path == '':
+        print('请输入正确的路径')
+    else:
+        try:
+            for i in os.listdir(file_path):
+                print(os.path.join(file_path, i))
+        except FileNotFoundError as e:
+            print('该路径没有找到')
+
+
+# 输出某个路径及其子目录下的所有文件路备
+def show_dir(filepath):
+    for i in os.listdir(filepath):
+        path = (os.path.join(filepath, i))
+        print(path)
+        if os.path.isdir(path):
+            show_dir(path)
+
+
+filepath1 = '/Users/cyf/Documents'
+
+
+# 输出某个路径及其子目录下所有.html为后缀的文件
+def print_dir_html(filepath):
+    for i in os.listdir(filepath):
+        path = os.path.join(filepath, i)
+        if os.path.isdir(path):
+            print_dir(path)
+
+        if path.endswith('.html'):
+            print(path)
+
+
+filepath2 = '/Users/cyf/Documents'
+
+# 把字典的键值对颠倒并产生新的字典
+dict1 = {'A': 'a', 'B': 'b', 'C': 'c'}
+dict2 = {y: x for x, y in dict1.items()}
+
+
+# 打印九九乘法表
+def multiplication_table():
+    for i in range(1, 10):
+        for j in range(1, i + 1):
+            print('{}x{}={}\t'.format(j, i, i * j), end='')
+        print()
+
+
+# 将列表中的3替换为3a
+list1 = ['aaa', 'bbb', 2, 3, 44, 33, 1, 2, 3, 3, 45, 3, 6]
+
+
+def replace_list(list1):
+    list1 = ['3a' if i == 3 else i for i in list1]
+    return list1
+
+
+# 合并列表并去重
+list2 = [2, 3, 4, 5, 4, 5, 6, 7]
+list3 = [3, 4, 5, 23, 2, 3, 4, 5, 6, 7, 8]
+list4 = list(set(list2 + list3))
+
+# 随机生成验证码的两种方式
+import random
+import string
+
+# 方法一
+list5 = []
+for i in range(65, 91):
+    list5.append(chr(i))
+for j in range(97, 123):
+    list5.append(chr(j))
+for k in range(48, 58):
+    list5.append(chr(k))
+ma = random.sample(list5, 6)
+ma = ''.join(ma)
+
+# 方法二
+str1 = '0123456789'
+str2 = string.ascii_letters
+str3 = str1 + str2
+ma1 = random.sample(str3, 6)
+ma1 = ''.join(ma1)
+
+# 计算平方根
+num = 10
+num_sqrt = num ** 0.5
+
+# 判断字符串是否只申数字组成
+str1.isdigit()
+str1.isnumeric()  # 此方法只针对unicode对象
+
+
+# 判断闰年
+def chaxun(year):
+    year = int(year)
+    if year % 400 == 0:
+        print('{}是世纪闰年'.format(year))
+    elif year % 4 == 0 and year % 100 != 0:
+        print('{}是普通闰年'.format(year))
+    else:
+        print('{}不是闰年'.format(year))
+
+
+# 斐波那契数列
+def fibonacci_num(num):
+    """
+    :param num: 项数
+    :return:
+    """
+    n1, n2 = 0, 1
+    if num == n1:
+        print('斐波那契数列: 0')
+    elif num == n2:
+        print('斐波那契数列: 0, 1')
+    else:
+        print('斐波那契数列: 0, 1', end='')
+        count = 2
+        while count < num:
+            n3 = n1 + n2
+            print(end=', ')
+            print(n3, end='')
+            n1, n2 = n2, n3
+            count += 1
+
+
+# 十进制转二进制, 八进制, 十六进制
+def dec_conver(num, type):
+    """
+    :param type: 进制类型
+    :param num: 十进制数
+    :return:
+    """
+    if type == 2:
+        return '二进制: {}'.format(bin(num))
+    elif type == 8:
+        return '八进制: {}'.format(oct(num))
+    elif type == 16:
+        return '十六进制: {}'.format(hex(num))
+    else:
+        return num
+
+
+# 最大公约数
+def hcf(x, y):
+    while y != 0:
+        temp = x % y
+        x, y = y, temp
+    return '最大公约数: {}'.format(x)
+
+
+# 最小公倍数
+def lcm(x, y):
+    m = max(x, y)
+    n = min(x, y)
+    while m % n:
+        m, n = n, m % n
+    return '最小公倍数: {}'.format(x * y // n)
+
+
+# 生成日历
+import calendar
+
+
+def cal(yy, mm):
+    """
+    根据输入的年月显示日历
+    :param yy: 年
+    :param mm: 月
+    :return:
+    """
+    print(calendar.month(yy, mm))
+
+
+# 计算每个月的天数
+def cal_day(y, m):
+    """
+    :param y: 年
+    :param m: 月
+    :return:
+    """
+    month_range = calendar.monthrange(y, m)
+    return month_range
+
+
+# 获取昨天的日期
+def get_yesterday():
+    today = datetime.date.today()
+    oneday = datetime.timedelta(days=1)
+    yesterday = today - oneday
+    return yesterday
+
+
+
+
 
 
 
